@@ -1,0 +1,17 @@
+// Run up Docker image
+docker-compose -f postgres.yaml up -d
+
+// Connect to postgres
+psql -h localhost -p 5432 -U postgres
+
+// Set up database schema
+diesel setup
+
+// create a migration, don't run if one already exists
+diesel migration generate create_todo_table
+
+// run the migration
+diesel migration run
+
+// drop and re-run the migration, this will kill off the tables and re-run
+diesel migration redo
